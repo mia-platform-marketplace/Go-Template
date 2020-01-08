@@ -59,6 +59,7 @@ func StatusRoutes(r *mux.Router, serviceName, serviceVersion string) {
 	})
 
 	r.HandleFunc("/-/check-up", func(w http.ResponseWriter, req *http.Request) {
-		w.WriteHeader(http.StatusNotImplemented)
+		_, body := handleStatusRoutes(w, serviceName, serviceVersion)
+		w.Write(body)
 	})
 }
