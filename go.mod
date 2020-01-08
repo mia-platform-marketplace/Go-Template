@@ -1,4 +1,4 @@
-module %CUSTOM_PLUGIN_SERVICE_NAME%
+module service
 
 go 1.13
 

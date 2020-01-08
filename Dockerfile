@@ -29,10 +29,7 @@ FROM scratch
 LABEL maintainer="%CUSTOM_PLUGIN_CREATOR_USERNAME%" \
   name="%CUSTOM_PLUGIN_SERVICE_NAME%" \
   description="%CUSTOM_PLUGIN_SERVICE_DESCRIPTION%" \
-  eu.mia-platform.url="https://www.mia-platform.eu" \
-  eu.mia-platform.version="1.1.1-rc.0"
-
-ENV SERVICE_VERSION="1.1.1-rc.0"
+  eu.mia-platform.url="https://www.mia-platform.eu"
 
 # Import the user and group files from the builder.
 COPY --from=builder /etc/passwd /etc/passwd
