@@ -54,7 +54,6 @@ func entrypoint(shutdown chan os.Signal) {
 	StatusRoutes(router, "%CUSTOM_PLUGIN_SERVICE_NAME%", env.ServiceVersion)
 
 	serviceRouter := router
-	log.Info(env.ServicePrefix)
 	if env.ServicePrefix != "" && env.ServicePrefix != "/" {
 		serviceRouter = router.PathPrefix(fmt.Sprintf("%s/", path.Clean(env.ServicePrefix))).Subrouter()
 	}

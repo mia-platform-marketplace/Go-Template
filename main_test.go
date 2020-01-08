@@ -41,7 +41,7 @@ func TestEntrypoint(t *testing.T) {
 
 		time.Sleep(1 * time.Second)
 
-		resp, err := http.DefaultClient.Get("http://localhost:3000/-/healthz")
+		resp, err := http.DefaultClient.Get("http://localhost:3000/")
 		assert.Equal(t, err, nil)
 		assert.Equal(t, resp.StatusCode, 200)
 	})

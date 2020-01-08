@@ -23,14 +23,10 @@ import (
 // EnvironmentVariables struct with the mapping of desired
 // environment variables.
 type EnvironmentVariables struct {
-	LogLevel            string
-	HTTPPort            string
-	UserIDHeaderKey     string
-	GroupsHeaderKey     string
-	ClienttypeHeaderKey string
-	BackofficeHeaderKey string
-	ServicePrefix       string
-	ServiceVersion      string
+	LogLevel       string
+	HTTPPort       string
+	ServicePrefix  string
+	ServiceVersion string
 }
 
 var envVariablesConfig = []configlib.EnvConfig{
@@ -43,26 +39,6 @@ var envVariablesConfig = []configlib.EnvConfig{
 		Key:          "HTTP_PORT",
 		Variable:     "HTTPPort",
 		DefaultValue: "8080",
-	},
-	{
-		Key:          "USERID_HEADER_KEY",
-		Variable:     "UserIdHeaderKey",
-		DefaultValue: "userid",
-	},
-	{
-		Key:          "GROUPS_HEADER_KEY",
-		Variable:     "GroupsHeaderKey",
-		DefaultValue: "usergroups",
-	},
-	{
-		Key:          "CLIENTTYPE_HEADER_KEY",
-		Variable:     "ClienttypeHeaderKey",
-		DefaultValue: "clienttype",
-	},
-	{
-		Key:          "BACKOFFICE_HEADER_KEY",
-		Variable:     "BackofficeHeaderKey",
-		DefaultValue: "isbackoffice",
 	},
 	{
 		Key:      "SERVICE_PREFIX",
