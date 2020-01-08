@@ -1,4 +1,4 @@
-module template
+module %CUSTOM_PLUGIN_SERVICE_NAME%
 
 go 1.13
 
