@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// Package helpers is a set of utility commonly used by http servers
+// Package helpers is a set of utilities commonly used by HTTP servers.
 package helpers
 
 import (
