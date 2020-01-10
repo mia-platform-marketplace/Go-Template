@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package main
 
 import (
@@ -64,6 +65,7 @@ func TestEntrypoint(t *testing.T) {
 		assert.Equal(t, err, nil)
 		assert.Equal(t, resp.StatusCode, 200)
 	})
+	
 	t.Run("GracefulShutdown works properly", func(t *testing.T) {
 		shutdown := make(chan os.Signal, 1)
 		flag := false

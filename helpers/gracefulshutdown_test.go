@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package helpers
 
 import (
@@ -28,7 +29,7 @@ import (
 	"gotest.tools/assert"
 )
 
-func TestGracefuleShutdown(t *testing.T) {
+func TestGracefulShutdown(t *testing.T) {
 	srv := &http.Server{
 		Addr:    "0.0.0.0:8080",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {}),

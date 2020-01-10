@@ -23,7 +23,7 @@ import (
 )
 
 func setupRouter(router *mux.Router) {
-	//setup your router here
+	// Setup your routes here.
 	router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 	})
 }
