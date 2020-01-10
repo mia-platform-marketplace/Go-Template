@@ -22,7 +22,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/magiconair/properties/assert"
+	"gotest.tools/assert"
 )
 
 func TestEntrypoint(t *testing.T) {

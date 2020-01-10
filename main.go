@@ -22,8 +22,9 @@ import (
 	"os"
 	"os/signal"
 	"path"
-	"service/helpers"
 	"syscall"
+
+	"service/helpers"
 
 	"github.com/gorilla/mux"
 	"github.com/mia-platform/configlib"

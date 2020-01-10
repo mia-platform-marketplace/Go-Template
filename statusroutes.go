@@ -23,7 +23,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// StatusResponse type
+// StatusResponse type.
 type StatusResponse struct {
 	Status  string
 	Name    string
@@ -46,7 +46,7 @@ func handleStatusRoutes(w http.ResponseWriter, serviceName, serviceVersion strin
 	return &status, body
 }
 
-// StatusRoutes add status routes to router
+// StatusRoutes add status routes to router.
 func StatusRoutes(r *mux.Router, serviceName, serviceVersion string) {
 	r.HandleFunc("/-/healthz", func(w http.ResponseWriter, req *http.Request) {
 		_, body := handleStatusRoutes(w, serviceName, serviceVersion)
