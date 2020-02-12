@@ -86,6 +86,5 @@ func TestEntrypoint(t *testing.T) {
 		mux.Lock()
 		assert.Equal(t, flag, true)
 		mux.Unlock()
-
 	})
 }
