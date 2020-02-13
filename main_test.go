@@ -73,6 +73,11 @@ func TestEntrypoint(t *testing.T) {
 		done := make(chan bool, 1)
 
 		go func() {
+			time.Sleep(5 * time.Second)
+			done <- false
+		}()
+
+		go func() {
 			entrypoint(shutdown)
 			done <- true
 		}()
