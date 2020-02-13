@@ -60,30 +60,3 @@ func TestGracefulShutdown(t *testing.T) {
 	defer mtx.Unlock()
 	assert.Equal(t, listenerError, http.ErrServerClosed, "Listener server not close correctly")
 }
-
-func TestGracefuleShutdownTimeout(t *testing.T) {
-	var delayShutdownSeconds int = 3
-
-	srv := &http.Server{
-		Addr:    "0.0.0.0:52737",
-		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {}),
-	}
-
-	var listenerError error
-	interruptChan := make(chan os.Signal, 1)
-	log, _ := test.NewNullLogger()
-
-	go func() {
-		time.Sleep(1 * time.Second)
-		interruptChan <- syscall.SIGTERM
-
-	}()
-
-	go func() {
-		GracefulShutdown(srv, interruptChan, log, delayShutdownSeconds)
-	}()
-
-	listenerError = srv.ListenAndServe()
-
-	assert.Equal(t, listenerError, http.ErrServerClosed, "Listener server not close correctly")
-}
