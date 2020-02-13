@@ -21,15 +21,17 @@ import (
 	"context"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/sirupsen/logrus"
 )
 
 // GracefulShutdown waits on notified signal to shutdown until all connections are closed.
-func GracefulShutdown(srv *http.Server, interruptChan chan os.Signal, logger *logrus.Logger) {
+func GracefulShutdown(srv *http.Server, interruptChan chan os.Signal, logger *logrus.Logger, timeoutCheckupProbeDependenciesInSecond int) {
 	// Block until we receive our signal.
 	<-interruptChan
 
+	time.Sleep(time.Duration(timeoutCheckupProbeDependenciesInSecond) * time.Second)
 	if err := srv.Shutdown(context.Background()); err != nil {
 		logger.WithError(err).Error("Error during shutdown, forcing close.")
 		if err := srv.Close(); err != nil {

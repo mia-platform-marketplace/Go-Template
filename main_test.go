@@ -82,7 +82,7 @@ func TestEntrypoint(t *testing.T) {
 		}()
 		shutdown <- syscall.SIGTERM
 
-		time.Sleep(2 * time.Second)
+		time.Sleep(12 * time.Second)
 		mux.Lock()
 		assert.Equal(t, flag, true)
 		mux.Unlock()
