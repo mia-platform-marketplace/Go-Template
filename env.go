@@ -23,11 +23,11 @@ import (
 // EnvironmentVariables struct with the mapping of desired
 // environment variables.
 type EnvironmentVariables struct {
-	LogLevel                                string
-	HTTPPort                                string
-	ServicePrefix                           string
-	ServiceVersion                          string
-	TimeoutCheckupProbeDependenciesInSecond int
+	LogLevel            string
+	HTTPPort            string
+	ServicePrefix       string
+	ServiceVersion      string
+	DelayShutdownSecond int
 }
 
 var envVariablesConfig = []configlib.EnvConfig{
@@ -50,8 +50,8 @@ var envVariablesConfig = []configlib.EnvConfig{
 		Variable: "ServiceVersion",
 	},
 	{
-		Key:          "TIMEOUT_CHECKUP_PROBE_DEPENDENCIES_IN_SECOND",
-		Variable:     "TimeoutCheckupProbeDependenciesInSecond",
+		Key:          "DELAY_SHUTDOWN_SECOND",
+		Variable:     "DelayShutdownSecond",
 		DefaultValue: "10",
 	},
 }
