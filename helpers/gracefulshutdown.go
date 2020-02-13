@@ -27,11 +27,11 @@ import (
 )
 
 // GracefulShutdown waits on notified signal to shutdown until all connections are closed.
-func GracefulShutdown(srv *http.Server, interruptChan chan os.Signal, logger *logrus.Logger, delayShutdownSecond int) {
+func GracefulShutdown(srv *http.Server, interruptChan chan os.Signal, logger *logrus.Logger, delayShutdownSeconds int) {
 	// Block until we receive our signal.
 	<-interruptChan
 
-	time.Sleep(time.Duration(delayShutdownSecond) * time.Second)
+	time.Sleep(time.Duration(delayShutdownSeconds) * time.Second)
 	if err := srv.Shutdown(context.Background()); err != nil {
 		logger.WithError(err).Error("Error during shutdown, forcing close.")
 		if err := srv.Close(); err != nil {

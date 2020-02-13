@@ -62,7 +62,7 @@ func TestGracefulShutdown(t *testing.T) {
 }
 
 func TestGracefuleShutdownTimeout(t *testing.T) {
-	var delayShutdownSecond int = 3
+	var delayShutdownSeconds int = 3
 
 	srv := &http.Server{
 		Addr:    "0.0.0.0:52737",
@@ -80,7 +80,7 @@ func TestGracefuleShutdownTimeout(t *testing.T) {
 	}()
 
 	go func() {
-		GracefulShutdown(srv, interruptChan, log, delayShutdownSecond)
+		GracefulShutdown(srv, interruptChan, log, delayShutdownSeconds)
 	}()
 
 	listenerError = srv.ListenAndServe()

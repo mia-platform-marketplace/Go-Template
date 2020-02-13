@@ -23,11 +23,11 @@ import (
 // EnvironmentVariables struct with the mapping of desired
 // environment variables.
 type EnvironmentVariables struct {
-	LogLevel            string
-	HTTPPort            string
-	ServicePrefix       string
-	ServiceVersion      string
-	DelayShutdownSecond int
+	LogLevel             string
+	HTTPPort             string
+	ServicePrefix        string
+	ServiceVersion       string
+	DelayShutdownSeconds int
 }
 
 var envVariablesConfig = []configlib.EnvConfig{
@@ -50,8 +50,8 @@ var envVariablesConfig = []configlib.EnvConfig{
 		Variable: "ServiceVersion",
 	},
 	{
-		Key:          "DELAY_SHUTDOWN_SECOND",
-		Variable:     "DelayShutdownSecond",
+		Key:          "DELAY_SHUTDOWN_SECONDS",
+		Variable:     "DelayShutdownSeconds",
 		DefaultValue: "10",
 	},
 }
