@@ -49,7 +49,7 @@ func TestGracefulShutdown(t *testing.T) {
 	log, _ := test.NewNullLogger()
 
 	go func() {
-		GracefulShutdown(srv, interruptChan, log)
+		GracefulShutdown(srv, interruptChan, log, 0)
 	}()
 
 	interruptChan <- syscall.SIGTERM

@@ -19,7 +19,6 @@ package main
 import (
 	"net/http"
 	"os"
-	"sync"
 	"syscall"
 	"testing"
 	"time"
@@ -68,23 +67,23 @@ func TestEntrypoint(t *testing.T) {
 	})
 
 	t.Run("GracefulShutdown works properly", func(t *testing.T) {
-		shutdown := make(chan os.Signal, 1)
-		flag := false
+		os.Setenv("DELAY_SHUTDOWN_SECONDS", "3")
 
-		var mux = &sync.Mutex{}
+		shutdown := make(chan os.Signal, 1)
+		done := make(chan bool, 1)
+
+		go func() {
+			time.Sleep(5 * time.Second)
+			done <- false
+		}()
 
 		go func() {
 			entrypoint(shutdown)
-			time.Sleep(1 * time.Second)
-			mux.Lock()
-			flag = true
-			mux.Unlock()
+			done <- true
 		}()
 		shutdown <- syscall.SIGTERM
 
-		time.Sleep(2 * time.Second)
-		mux.Lock()
+		flag := <-done
 		assert.Equal(t, flag, true)
-		mux.Unlock()
 	})
 }

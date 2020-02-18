@@ -76,5 +76,5 @@ func entrypoint(shutdown chan os.Signal) {
 	signal.Notify(shutdown, syscall.SIGTERM)
 	// We'll accept graceful shutdowns when quit via  and SIGTERM (Ctrl+/)
 	// SIGINT (Ctrl+C), SIGKILL or SIGQUIT will not be caught.
-	helpers.GracefulShutdown(srv, shutdown, log)
+	helpers.GracefulShutdown(srv, shutdown, log, env.DelayShutdownSeconds)
 }
