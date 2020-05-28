@@ -1,24 +1,23 @@
 ############################
 # STEP 1 build executable binary
 ############################
-FROM golang:1.13-alpine AS builder
-
-RUN apk update && apk add --no-cache git
-
-ARG COMMIT_SHA=<not-specified>
-
-# Create appuser.
-RUN adduser -D -g '' appuser
+FROM golang:1.14 AS builder
 
 WORKDIR /app
-COPY . .
 
-RUN echo "$COMMIT_SHA" >> ./commit.sha
+COPY go.mod .
+COPY go.sum .
 
 RUN go mod download
 RUN go mod verify
 
+COPY . .
+
 RUN GOOS=linux CGO_ENABLED=0 GOARCH=amd64 go build -ldflags="-w -s" -o main .
+
+WORKDIR /app/build
+
+RUN cp -r /app/main /app/LICENSE .
 
 ############################
 # STEP 2 build service image
@@ -26,21 +25,19 @@ RUN GOOS=linux CGO_ENABLED=0 GOARCH=amd64 go build -ldflags="-w -s" -o main .
 
 FROM scratch
 
+ARG COMMIT_SHA=<not-specified>
+
 LABEL maintainer="%CUSTOM_PLUGIN_CREATOR_USERNAME%" \
   name="%CUSTOM_PLUGIN_SERVICE_NAME%" \
   description="%CUSTOM_PLUGIN_SERVICE_DESCRIPTION%" \
-  eu.mia-platform.url="https://www.mia-platform.eu"
-
-# Import the user and group files from the builder.
-COPY --from=builder /etc/passwd /etc/passwd
+  eu.mia-platform.url="https://www.mia-platform.eu" \
+  vcs.sha="$COMMIT_SHA"
 
 WORKDIR /app
 
-COPY --from=builder /app/commit.sha /app/commit.sha
-
-COPY --from=builder /app/main /app/main
+COPY --from=builder /app/build/* ./
 
 # Use an unprivileged user.
-USER appuser
+USER 1000
 
-ENTRYPOINT ["/app/main"]
+CMD ["/app/main"]
