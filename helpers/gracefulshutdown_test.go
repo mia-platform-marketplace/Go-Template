@@ -17,6 +17,7 @@
 package helpers
 
 import (
+	"github.com/stretchr/testify/require"
 	"net/http"
 	"os"
 	"os/signal"
@@ -26,7 +27,6 @@ import (
 	"time"
 
 	"github.com/sirupsen/logrus/hooks/test"
-	"gotest.tools/assert"
 )
 
 func TestGracefulShutdown(t *testing.T) {
@@ -58,5 +58,5 @@ func TestGracefulShutdown(t *testing.T) {
 
 	mtx.Lock()
 	defer mtx.Unlock()
-	assert.Equal(t, listenerError, http.ErrServerClosed, "Listener server not close correctly")
+	require.Equal(t, http.ErrServerClosed, listenerError, "Listener server not close correctly")
 }

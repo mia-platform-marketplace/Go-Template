@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -17,54 +17,51 @@ func TestStatusRoutes(testCase *testing.T) {
 	serviceVersion := "0.0.0"
 	StatusRoutes(testRouter, serviceName, serviceVersion)
 
-	testCase.Run("/-/healthz - ok", func(assert *testing.T) {
+	testCase.Run("/-/healthz - ok", func(t *testing.T) {
 		expectedResponse := fmt.Sprintf("{\"status\":\"OK\",\"name\":\"%s\",\"version\":\"%s\"}", serviceName, serviceVersion)
 		responseRecorder := httptest.NewRecorder()
-		request, error := http.NewRequest(http.MethodGet, "/-/healthz", nil)
-		if error != nil {
-			assert.Fatal("Error creating the /-/healthz request")
-		}
+		request, requestError := http.NewRequest(http.MethodGet, "/-/healthz", nil)
+		require.NoError(t, requestError, "Error creating the /-/healthz request")
+
 		testRouter.ServeHTTP(responseRecorder, request)
 		statusCode := responseRecorder.Result().StatusCode
-		require.Equal(assert, http.StatusOK, statusCode, "The response statusCode should be 200")
+		require.Equal(t, http.StatusOK, statusCode, "The response statusCode should be 200")
 
 		rawBody := responseRecorder.Result().Body
-		buffer := new(bytes.Buffer)
-		buffer.ReadFrom(rawBody)
-		require.Equal(assert, expectedResponse, buffer.String(), "The response body should be the expected one")
+		body, readBodyError := ioutil.ReadAll(rawBody)
+		require.NoError(t, readBodyError)
+		require.Equal(t, expectedResponse, string(body), "The response body should be the expected one")
 	})
 
-	testCase.Run("/-/ready - ok", func(assert *testing.T) {
+	testCase.Run("/-/ready - ok", func(t *testing.T) {
 		expectedResponse := fmt.Sprintf("{\"status\":\"OK\",\"name\":\"%s\",\"version\":\"%s\"}", serviceName, serviceVersion)
 		responseRecorder := httptest.NewRecorder()
-		request, error := http.NewRequest(http.MethodGet, "/-/ready", nil)
-		if error != nil {
-			assert.Fatal("Error creating the /-/ready request")
-		}
+		request, requestError := http.NewRequest(http.MethodGet, "/-/ready", nil)
+		require.NoError(t, requestError, "Error creating the /-/ready request")
+
 		testRouter.ServeHTTP(responseRecorder, request)
 		statusCode := responseRecorder.Result().StatusCode
-		require.Equal(assert, http.StatusOK, statusCode, "The response statusCode should be 200")
+		require.Equal(t, http.StatusOK, statusCode, "The response statusCode should be 200")
 
 		rawBody := responseRecorder.Result().Body
-		buffer := new(bytes.Buffer)
-		buffer.ReadFrom(rawBody)
-		require.Equal(assert, expectedResponse, buffer.String(), "The response body should be the expected one")
+		body, readBodyError := ioutil.ReadAll(rawBody)
+		require.NoError(t, readBodyError)
+		require.Equal(t, expectedResponse, string(body), "The response body should be the expected one")
 	})
 
-	testCase.Run("/-/check-up - ok", func(assert *testing.T) {
+	testCase.Run("/-/check-up - ok", func(t *testing.T) {
 		expectedResponse := fmt.Sprintf("{\"status\":\"OK\",\"name\":\"%s\",\"version\":\"%s\"}", serviceName, serviceVersion)
 		responseRecorder := httptest.NewRecorder()
-		request, error := http.NewRequest(http.MethodGet, "/-/check-up", nil)
-		if error != nil {
-			assert.Fatal("Error creating the /-/check-up request")
-		}
+		request, requestError := http.NewRequest(http.MethodGet, "/-/check-up", nil)
+		require.NoError(t, requestError, "Error creating the /-/check-up request")
+
 		testRouter.ServeHTTP(responseRecorder, request)
 		statusCode := responseRecorder.Result().StatusCode
-		require.Equal(assert, http.StatusOK, statusCode, "The response statusCode should be 200")
+		require.Equal(t, http.StatusOK, statusCode, "The response statusCode should be 200")
 
 		rawBody := responseRecorder.Result().Body
-		buffer := new(bytes.Buffer)
-		buffer.ReadFrom(rawBody)
-		require.Equal(assert, expectedResponse, buffer.String(), "The response body should be the expected one")
+		body, readBodyError := ioutil.ReadAll(rawBody)
+		require.NoError(t, readBodyError)
+		require.Equal(t, expectedResponse, string(body), "The response body should be the expected one")
 	})
 }
