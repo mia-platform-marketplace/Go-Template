@@ -11,13 +11,13 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestStatusRoutes(t *testing.T) {
+func TestStatusRoutes(testCase *testing.T) {
 	testRouter := mux.NewRouter()
 	serviceName := "%CUSTOM_PLUGIN_SERVICE_NAME%"
 	serviceVersion := "0.0.0"
 	StatusRoutes(testRouter, serviceName, serviceVersion)
 
-	t.Run("/-/healthz - ok", func(assert *testing.T) {
+	testCase.Run("/-/healthz - ok", func(assert *testing.T) {
 		expectedResponse := fmt.Sprintf("{\"status\":\"OK\",\"name\":\"%s\",\"version\":\"%s\"}", serviceName, serviceVersion)
 		responseRecorder := httptest.NewRecorder()
 		request, error := http.NewRequest(http.MethodGet, "/-/healthz", nil)
@@ -34,7 +34,7 @@ func TestStatusRoutes(t *testing.T) {
 		require.Equal(assert, expectedResponse, buffer.String(), "The response body should be the expected one")
 	})
 
-	t.Run("/-/ready - ok", func(assert *testing.T) {
+	testCase.Run("/-/ready - ok", func(assert *testing.T) {
 		expectedResponse := fmt.Sprintf("{\"status\":\"OK\",\"name\":\"%s\",\"version\":\"%s\"}", serviceName, serviceVersion)
 		responseRecorder := httptest.NewRecorder()
 		request, error := http.NewRequest(http.MethodGet, "/-/ready", nil)
@@ -51,7 +51,7 @@ func TestStatusRoutes(t *testing.T) {
 		require.Equal(assert, expectedResponse, buffer.String(), "The response body should be the expected one")
 	})
 
-	t.Run("/-/check-up - ok", func(assert *testing.T) {
+	testCase.Run("/-/check-up - ok", func(assert *testing.T) {
 		expectedResponse := fmt.Sprintf("{\"status\":\"OK\",\"name\":\"%s\",\"version\":\"%s\"}", serviceName, serviceVersion)
 		responseRecorder := httptest.NewRecorder()
 		request, error := http.NewRequest(http.MethodGet, "/-/check-up", nil)
