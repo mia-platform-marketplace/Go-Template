@@ -25,9 +25,9 @@ import (
 
 // StatusResponse type.
 type StatusResponse struct {
-	Status  string
-	Name    string
-	Version string
+	Status  string `json:"status"`
+	Name    string `json:"name"`
+	Version string `json:"version"`
 }
 
 func handleStatusRoutes(w http.ResponseWriter, serviceName, serviceVersion string) (*StatusResponse, []byte) {

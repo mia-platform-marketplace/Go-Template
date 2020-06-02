@@ -17,16 +17,15 @@
 package main
 
 import (
+	"github.com/stretchr/testify/require"
 	"net/http"
 	"os"
 	"syscall"
 	"testing"
 	"time"
-
-	"gotest.tools/assert"
 )
 
-func TestEntrypoint(t *testing.T) {
+func TestEntryPoint(t *testing.T) {
 	t.Run("opens server on port 3000", func(t *testing.T) {
 		shutdown := make(chan os.Signal, 1)
 
@@ -43,8 +42,8 @@ func TestEntrypoint(t *testing.T) {
 		time.Sleep(1 * time.Second)
 
 		resp, err := http.DefaultClient.Get("http://localhost:3000/")
-		assert.Equal(t, err, nil)
-		assert.Equal(t, resp.StatusCode, 200)
+		require.Equal(t, nil, err)
+		require.Equal(t, 200, resp.StatusCode)
 	})
 
 	t.Run("sets correct path prefix", func(t *testing.T) {
@@ -62,8 +61,8 @@ func TestEntrypoint(t *testing.T) {
 		time.Sleep(1 * time.Second)
 
 		resp, err := http.DefaultClient.Get("http://localhost:8080/prefix/")
-		assert.Equal(t, err, nil)
-		assert.Equal(t, resp.StatusCode, 200)
+		require.Equal(t, nil, err)
+		require.Equal(t, 200, resp.StatusCode)
 	})
 
 	t.Run("GracefulShutdown works properly", func(t *testing.T) {
@@ -84,6 +83,6 @@ func TestEntrypoint(t *testing.T) {
 		shutdown <- syscall.SIGTERM
 
 		flag := <-done
-		assert.Equal(t, flag, true)
+		require.Equal(t, true, flag)
 	})
 }

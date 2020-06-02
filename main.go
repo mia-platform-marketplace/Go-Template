@@ -24,7 +24,7 @@ import (
 	"path"
 	"syscall"
 
-	"service/helpers"
+	"mia_template_service_name_placeholder/helpers"
 
 	"github.com/gorilla/mux"
 	"github.com/mia-platform/configlib"
