@@ -17,7 +17,6 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -30,16 +29,5 @@ type HelloWorld struct {
 func setupRouter(router *mux.Router) {
 	// Setup your routes here.
 	router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		w.Header().Add("Content-Type", "application/json")
-		helloWorld := HelloWorld{
-			Msg: "Hello world!",
-		}
-		body, err := json.Marshal(&helloWorld)
-		if err != nil {
-			w.WriteHeader(http.StatusServiceUnavailable)
-			w.Write(nil)
-		}
-		w.WriteHeader(http.StatusOK)
-		w.Write(body)
 	})
 }
