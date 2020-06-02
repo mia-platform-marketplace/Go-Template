@@ -22,10 +22,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type HelloWorld struct {
-	Msg string `json:"msg"`
-}
-
 func setupRouter(router *mux.Router) {
 	// Setup your routes here.
 	router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {

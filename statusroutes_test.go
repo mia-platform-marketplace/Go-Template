@@ -13,7 +13,7 @@ import (
 
 func TestStatusRoutes(testCase *testing.T) {
 	testRouter := mux.NewRouter()
-	serviceName := "%CUSTOM_PLUGIN_SERVICE_NAME%"
+	serviceName := "my-service-name"
 	serviceVersion := "0.0.0"
 	StatusRoutes(testRouter, serviceName, serviceVersion)
 
