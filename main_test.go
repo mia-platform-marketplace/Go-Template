@@ -26,7 +26,7 @@ import (
 	"gotest.tools/assert"
 )
 
-func TestEntrypoint(t *testing.T) {
+func TestEntryPoint(t *testing.T) {
 	t.Run("opens server on port 3000", func(t *testing.T) {
 		shutdown := make(chan os.Signal, 1)
 
