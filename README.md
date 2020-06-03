@@ -1,4 +1,4 @@
-# %CUSTOM_PLUGIN_SERVICE_NAME%
+# mia_template_service_name_placeholder
 
 This is a simple Go application template with a pre-configured [logger]("https://github.com/mia-platform/glogger") and a [library]("https://github.com/mia-platform/configlib") to handle configuration file and env variables.
 It also contains basic dependencies for testing and http request.
@@ -11,7 +11,7 @@ To develop the service locally you need:
 To start the application locally 
 
  ```
-    go run %CUSTOM_PLUGIN_SERVICE_NAME%
+    go run mia_template_service_name_placeholder
  ```
 By default the service will run on port 8080, to change the port please set `HTTP_PORT` env variable
 

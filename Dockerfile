@@ -28,7 +28,7 @@ FROM scratch
 ARG COMMIT_SHA=<not-specified>
 
 LABEL maintainer="%CUSTOM_PLUGIN_CREATOR_USERNAME%" \
-  name="%CUSTOM_PLUGIN_SERVICE_NAME%" \
+  name="mia_template_service_name_placeholder" \
   description="%CUSTOM_PLUGIN_SERVICE_DESCRIPTION%" \
   eu.mia-platform.url="https://www.mia-platform.eu" \
   vcs.sha="$COMMIT_SHA"

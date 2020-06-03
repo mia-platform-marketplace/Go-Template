@@ -52,7 +52,7 @@ func entrypoint(shutdown chan os.Signal) {
 	// Routing
 	router := mux.NewRouter()
 	router.Use(glogger.RequestMiddlewareLogger(log, []string{"/-/"}))
-	StatusRoutes(router, "%CUSTOM_PLUGIN_SERVICE_NAME%", env.ServiceVersion)
+	StatusRoutes(router, "mia_template_service_name_placeholder", env.ServiceVersion)
 
 	serviceRouter := router
 	if env.ServicePrefix != "" && env.ServicePrefix != "/" {
