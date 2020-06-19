@@ -2,7 +2,7 @@
 
 This walkthrough will explain you how to correctly create a microservice based on our Go Template from the DevOps Console.
 
-## Create microservice
+## Create a microservice
 
 In order to do so, access to [Mia-Platform DevOps Console](https://console.cloud.mia-platform.eu/login), create a new project and go to the **Design** area.
 
@@ -35,7 +35,7 @@ func setupRouter(router *mux.Router) {
 
 Wonderful! You are now ready to start customizing your service! Read next section to learn how.
 
-## Adding a Welcome route
+## Add a Welcome route
 
 Now that you have successfully created a microservice from our Go template you will add an *welcome* route to it.
 
@@ -90,7 +90,7 @@ func setupRouter(router *mux.Router) {
 
 After committing these changes to your repository, you can go back to Mia Platform DevOps Console.
 
-## Expose endpoint
+## Expose an endpoint to your microservice
 
 In order to access to your new microservice it is necessary to create an endpoint that targets it.  
 In particular, in this walkthrough you will create an endpoint to your microservice *my-go-service-name*. To do so, from the Design area of your project select _Endpoints_ and then create a new endpoint.
