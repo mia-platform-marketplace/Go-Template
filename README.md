@@ -1,5 +1,8 @@
 # Go Template walkthrough
 
+[![pipeline status][pipeline]][git-link]
+[![coverage report][coverage]][git-link]
+
 This walkthrough will explain you how to correctly create a microservice based on our Go Template from the DevOps Console.
 
 ## Create a microservice
