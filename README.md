@@ -1,7 +1,7 @@
 # Go Template walkthrough
 
-[![pipeline status][pipeline]][git-link]
-[![coverage report][coverage]][git-link]
+[![Build Status][travis-svg]][travis-link]
+[![Coverage Status][coverall-svg]][coverall-io]
 
 This walkthrough will explain you how to correctly create a microservice based on our Go Template from the DevOps Console.
 
@@ -128,6 +128,9 @@ you should see the following message:
 
 Congratulations! You have successfully learnt how to modify a blank Go template into a _Welcome_ microservice!
 
-[pipeline]: https://git.tools.mia-platform.eu/clients/mia-platform/demo/services/mia_template_service_name_placeholder/badges/master/pipeline.svg
-[coverage]: https://git.tools.mia-platform.eu/clients/mia-platform/demo/services/mia_template_service_name_placeholder/badges/master/coverage.svg
-[git-link]: https://git.tools.mia-platform.eu/clients/mia-platform/demo/services/mia_template_service_name_placeholder/commits/master
+[travis-svg]: https://travis-ci.org/mia-platform/api-explorer.svg?branch=master
+[travis-link]: https://travis-ci.org/mia-platform/api-explorer
+[lerna-svg]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
+[lerna-link]: https://lerna.js.org
+[coverall-svg]: https://coveralls.io/repos/github/mia-platform/api-explorer/badge.svg
+[coverall-io]: https://coveralls.io/github/mia-platform/api-explorer
