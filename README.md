@@ -130,7 +130,5 @@ Congratulations! You have successfully learnt how to modify a blank Go template 
 
 [travis-svg]: https://travis-ci.org/mia-platform/api-explorer.svg?branch=master
 [travis-link]: https://travis-ci.org/mia-platform/api-explorer
-[lerna-svg]: https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg
-[lerna-link]: https://lerna.js.org
 [coverall-svg]: https://coveralls.io/repos/github/mia-platform/api-explorer/badge.svg
 [coverall-io]: https://coveralls.io/github/mia-platform/api-explorer
