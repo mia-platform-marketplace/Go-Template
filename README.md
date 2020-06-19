@@ -1,7 +1,7 @@
 # Go Template walkthrough
 
 [![Build Status][github-actions-svg]][github-actions]
-
+[![Go Report Card][go-report-card]][go-report-card-link]
 
 This walkthrough will explain you how to correctly create a microservice based on our Go Template from the DevOps Console.
 
@@ -130,3 +130,5 @@ Congratulations! You have successfully learnt how to modify a blank Go template 
 
 [github-actions]: https://github.com/mia-platform-marketplace/Go-Template/actions
 [github-actions-svg]: https://github.com/mia-platform-marketplace/Go-Template/workflows/Go/badge.svg
+[go-report-card]: https://goreportcard.com/badge/github.com/mia-platform-marketplace/Go-Template
+[go-report-card-link]: https://goreportcard.com/report/github.com/mia-platform-marketplace/Go-Template
