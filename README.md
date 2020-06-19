@@ -128,7 +128,7 @@ you should see the following message:
 
 Congratulations! You have successfully learnt how to modify a blank Go template into a _Welcome_ microservice!
 
-[travis-svg]: https://travis-ci.org/mia-platform/api-explorer.svg?branch=master
-[travis-link]: https://travis-ci.org/mia-platform/api-explorer
-[coverall-svg]: https://coveralls.io/repos/github/mia-platform/api-explorer/badge.svg
-[coverall-io]: https://coveralls.io/github/mia-platform/api-explorer
+[travis-svg]: https://travis-ci.org/mia-platform-marketplace/Go-Template.svg?branch=master
+[travis-link]: https://travis-ci.org/mia-platform-marketplace/Go-Template
+[coverall-svg]: https://coveralls.io/repos/github/mia-platform-marketplace/Go-Template/badge.svg
+[coverall-io]: https://coveralls.io/github/mia-platform-marketplace/Go-Template
