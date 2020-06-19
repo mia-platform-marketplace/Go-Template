@@ -127,3 +127,7 @@ you should see the following message:
 ```
 
 Congratulations! You have successfully learnt how to modify a blank Go template into a _Welcome_ microservice!
+
+[pipeline]: https://git.tools.mia-platform.eu/clients/mia-platform/demo/services/mia_template_service_name_placeholder/badges/master/pipeline.svg
+[coverage]: https://git.tools.mia-platform.eu/clients/mia-platform/demo/services/mia_template_service_name_placeholder/badges/master/coverage.svg
+[git-link]: https://git.tools.mia-platform.eu/clients/mia-platform/demo/services/mia_template_service_name_placeholder/commits/master
