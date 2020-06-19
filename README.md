@@ -129,4 +129,4 @@ you should see the following message:
 Congratulations! You have successfully learnt how to modify a blank Go template into a _Welcome_ microservice!
 
 [github-actions]: https://github.com/mia-platform-marketplace/Go-Template/actions
-[github-actions-svg]: https://github.com/mia-platform-marketplace/Go-Template/workflows/Build%20&%20Test/badge.svg
+[github-actions-svg]: https://github.com/mia-platform-marketplace/Go-Template/workflows/Go/badge.svg
