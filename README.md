@@ -1,7 +1,7 @@
 # Go Template walkthrough
 
 [![Build Status][github-actions-svg]][github-actions]
-[![Coverage Status][coverall-svg]][coverall-io]
+
 
 This walkthrough will explain you how to correctly create a microservice based on our Go Template from the DevOps Console.
 
@@ -127,11 +127,6 @@ you should see the following message:
 ```
 
 Congratulations! You have successfully learnt how to modify a blank Go template into a _Welcome_ microservice!
-
-[travis-svg]: https://travis-ci.org/mia-platform-marketplace/Go-Template.svg?branch=master
-[travis-link]: https://travis-ci.org/mia-platform-marketplace/Go-Template
-[coverall-svg]: https://coveralls.io/repos/github/mia-platform-marketplace/Go-Template/badge.svg
-[coverall-io]: https://coveralls.io/github/mia-platform-marketplace/Go-Template
 
 [github-actions]: https://github.com/mia-platform-marketplace/Go-Template/actions
 [github-actions-svg]: https://github.com/mia-platform-marketplace/Go-Template/workflows/Test%20and%20build/badge.svg
