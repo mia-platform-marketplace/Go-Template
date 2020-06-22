@@ -35,3 +35,16 @@ jobs:
 
     - name: Test
       run: go test -v .
+
+    - name: Install dependencies
+      run: |
+        go mod download
+    - name: Run Unit tests
+      run: |
+        go test -race -covermode atomic -coverprofile=profile.cov ./...
+    - name: Send coverage
+      env:
+        COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        GO111MODULE=off go get github.com/mattn/goveralls
+        $(go env GOPATH)/bin/goveralls -coverprofile=profile.cov -service=github
