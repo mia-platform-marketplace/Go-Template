@@ -4,7 +4,7 @@ This is a simple Go application template with a pre-configured [logger]("https:/
 It also contains basic dependencies for testing and http request.
 By default the module name is "service", if you want to change it, please remember to change it in the imports too.
 
-## Development Local
+## Local Development
 To develop the service locally you need:
     - Go 1.13+
 
