@@ -11,7 +11,7 @@ To develop the service locally you need:
 
 To start the application locally
 
- ```go
+```go
 go run mia_template_service_name_placeholder
  ```
 
