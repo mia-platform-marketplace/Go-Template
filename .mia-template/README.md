@@ -22,5 +22,5 @@ By default the service will run on port 8080, to change the port please set `HTT
 To test the application use:
 
 ```go
-    go test -v
+go test -v
 ```
