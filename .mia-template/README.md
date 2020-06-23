@@ -13,7 +13,7 @@ To start the application locally
 
 ```go
 go run mia_template_service_name_placeholder
- ```
+```
 
 By default the service will run on port 8080, to change the port please set `HTTP_PORT` env variable
 
