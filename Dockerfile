@@ -33,6 +33,12 @@ LABEL maintainer="%CUSTOM_PLUGIN_CREATOR_USERNAME%" \
   eu.mia-platform.url="https://www.mia-platform.eu" \
   vcs.sha="$COMMIT_SHA"
 
+
+# Import the user and group files from the builder.
+COPY --from=builder /etc/passwd /etc/passwd
+# Import the certs from the builder.
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+
 WORKDIR /app
 
 COPY --from=builder /app/build/* ./
