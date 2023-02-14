@@ -34,7 +34,7 @@ import (
 func setupRouter(env EnvironmentVariables, log *logrus.Logger) (*fiber.App, error) {
 	app := fiber.New()
 	app.Use(middleware.RequestFiberMiddlewareLogger(log, []string{}))
-	StatusRoutes(app, "feature-toggle-service", env.ServiceVersion)
+	StatusRoutes(app, "mia_template_service_name_placeholder", env.ServiceVersion)
 	if env.ServicePrefix != "" && env.ServicePrefix != "/" {
 		log.WithField("servicePrefix", env.ServicePrefix).Trace("applying service prefix")
 		app.Use(pprof.New(pprof.Config{Prefix: fmt.Sprintf("%s/", path.Clean(env.ServicePrefix))}))
@@ -44,7 +44,7 @@ func setupRouter(env EnvironmentVariables, log *logrus.Logger) (*fiber.App, erro
 		Context: context.Background(),
 		Openapi: &openapi3.T{
 			Info: &openapi3.Info{
-				Title:   "feature-toggle-service",
+				Title:   "mia_template_service_name_placeholder",
 				Version: env.ServiceVersion,
 			},
 		},
