@@ -2,65 +2,50 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"github.com/gorilla/mux"
+	"github.com/gofiber/fiber/v2"
 	"github.com/stretchr/testify/require"
 )
 
-func TestStatusRoutes(testCase *testing.T) {
-	testRouter := mux.NewRouter()
+func TestStatusRoutes(t *testing.T) {
+	app := fiber.New()
 	serviceName := "my-service-name"
 	serviceVersion := "0.0.0"
-	StatusRoutes(testRouter, serviceName, serviceVersion)
+	StatusRoutes(app, serviceName, serviceVersion)
 
-	testCase.Run("/-/healthz - ok", func(t *testing.T) {
+	t.Run("/-/healthz - ok", func(t *testing.T) {
 		expectedResponse := fmt.Sprintf("{\"status\":\"OK\",\"name\":\"%s\",\"version\":\"%s\"}", serviceName, serviceVersion)
-		responseRecorder := httptest.NewRecorder()
-		request, requestError := http.NewRequest(http.MethodGet, "/-/healthz", nil)
-		require.NoError(t, requestError, "Error creating the /-/healthz request")
-
-		testRouter.ServeHTTP(responseRecorder, request)
-		statusCode := responseRecorder.Result().StatusCode
-		require.Equal(t, http.StatusOK, statusCode, "The response statusCode should be 200")
-
-		rawBody := responseRecorder.Result().Body
-		body, readBodyError := ioutil.ReadAll(rawBody)
+		request := httptest.NewRequest(http.MethodGet, "/-/healthz", nil)
+		response, err := app.Test(request)
+		require.NoError(t, err)
+		require.Equal(t, fiber.StatusOK, response.StatusCode, "The response statusCode should be 200")
+		body, readBodyError := io.ReadAll(response.Body)
 		require.NoError(t, readBodyError)
 		require.Equal(t, expectedResponse, string(body), "The response body should be the expected one")
 	})
 
-	testCase.Run("/-/ready - ok", func(t *testing.T) {
+	t.Run("/-/ready - ok", func(t *testing.T) {
 		expectedResponse := fmt.Sprintf("{\"status\":\"OK\",\"name\":\"%s\",\"version\":\"%s\"}", serviceName, serviceVersion)
-		responseRecorder := httptest.NewRecorder()
-		request, requestError := http.NewRequest(http.MethodGet, "/-/ready", nil)
-		require.NoError(t, requestError, "Error creating the /-/ready request")
-
-		testRouter.ServeHTTP(responseRecorder, request)
-		statusCode := responseRecorder.Result().StatusCode
-		require.Equal(t, http.StatusOK, statusCode, "The response statusCode should be 200")
-
-		rawBody := responseRecorder.Result().Body
-		body, readBodyError := ioutil.ReadAll(rawBody)
+		request := httptest.NewRequest(http.MethodGet, "/-/ready", nil)
+		response, err := app.Test(request)
+		require.NoError(t, err)
+		require.Equal(t, fiber.StatusOK, response.StatusCode, "The response statusCode should be 200")
+		body, readBodyError := io.ReadAll(response.Body)
 		require.NoError(t, readBodyError)
 		require.Equal(t, expectedResponse, string(body), "The response body should be the expected one")
 	})
 
-	testCase.Run("/-/check-up - ok", func(t *testing.T) {
+	t.Run("/-/check-up - ok", func(t *testing.T) {
 		expectedResponse := fmt.Sprintf("{\"status\":\"OK\",\"name\":\"%s\",\"version\":\"%s\"}", serviceName, serviceVersion)
-		responseRecorder := httptest.NewRecorder()
-		request, requestError := http.NewRequest(http.MethodGet, "/-/check-up", nil)
-		require.NoError(t, requestError, "Error creating the /-/check-up request")
-
-		testRouter.ServeHTTP(responseRecorder, request)
-		statusCode := responseRecorder.Result().StatusCode
-		require.Equal(t, http.StatusOK, statusCode, "The response statusCode should be 200")
-
-		rawBody := responseRecorder.Result().Body
-		body, readBodyError := ioutil.ReadAll(rawBody)
+		request := httptest.NewRequest(http.MethodGet, "/-/check-up", nil)
+		response, err := app.Test(request)
+		require.NoError(t, err)
+		require.Equal(t, fiber.StatusOK, response.StatusCode, "The response statusCode should be 200")
+		body, readBodyError := io.ReadAll(response.Body)
 		require.NoError(t, readBodyError)
 		require.Equal(t, expectedResponse, string(body), "The response body should be the expected one")
 	})

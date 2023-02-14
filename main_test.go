@@ -17,12 +17,13 @@
 package main
 
 import (
-	"github.com/stretchr/testify/require"
 	"net/http"
 	"os"
 	"syscall"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestEntryPoint(t *testing.T) {
@@ -30,18 +31,20 @@ func TestEntryPoint(t *testing.T) {
 		shutdown := make(chan os.Signal, 1)
 
 		os.Setenv("HTTP_PORT", "3000")
+		os.Setenv("SERVICE_VERSION", "myVersion")
 
 		go func() {
 			entrypoint(shutdown)
 		}()
 		defer func() {
 			os.Unsetenv("HTTP_PORT")
+			os.Unsetenv("SERVICE_VERSION")
 			shutdown <- syscall.SIGTERM
 		}()
 
 		time.Sleep(1 * time.Second)
 
-		resp, err := http.DefaultClient.Get("http://localhost:3000/")
+		resp, err := http.DefaultClient.Get("http://localhost:3000/-/healthz")
 		require.Equal(t, nil, err)
 		require.Equal(t, 200, resp.StatusCode)
 	})
@@ -49,11 +52,14 @@ func TestEntryPoint(t *testing.T) {
 	t.Run("sets correct path prefix", func(t *testing.T) {
 		shutdown := make(chan os.Signal, 1)
 
+		os.Setenv("SERVICE_VERSION", "myVersion")
 		os.Setenv("SERVICE_PREFIX", "/prefix")
+
 		go func() {
 			entrypoint(shutdown)
 		}()
 		defer func() {
+			os.Unsetenv("SERVICE_VERSION")
 			os.Unsetenv("SERVICE_PREFIX")
 			shutdown <- syscall.SIGTERM
 		}()
@@ -62,14 +68,20 @@ func TestEntryPoint(t *testing.T) {
 
 		resp, err := http.DefaultClient.Get("http://localhost:8080/prefix/")
 		require.Equal(t, nil, err)
-		require.Equal(t, 200, resp.StatusCode)
+		require.Equal(t, 404, resp.StatusCode)
 	})
 
-	t.Run("GracefulShutdown works properly", func(t *testing.T) {
+	t.Run("shutdown works properly", func(t *testing.T) {
+		os.Setenv("SERVICE_VERSION", "myVersion")
 		os.Setenv("DELAY_SHUTDOWN_SECONDS", "3")
 
 		shutdown := make(chan os.Signal, 1)
 		done := make(chan bool, 1)
+
+		defer func() {
+			os.Unsetenv("SERVICE_VERSION")
+			os.Unsetenv("DELAY_SHUTDOWN_SECONDS")
+		}()
 
 		go func() {
 			time.Sleep(5 * time.Second)
@@ -80,9 +92,10 @@ func TestEntryPoint(t *testing.T) {
 			entrypoint(shutdown)
 			done <- true
 		}()
+
 		shutdown <- syscall.SIGTERM
 
 		flag := <-done
-		require.Equal(t, true, flag)
+		require.True(t, flag)
 	})
 }

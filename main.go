@@ -18,17 +18,15 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 	"os"
 	"os/signal"
-	"path"
 	"syscall"
+	"time"
 
-	"mia_template_service_name_placeholder/helpers"
-
-	"github.com/gorilla/mux"
+	"github.com/gofiber/fiber/v2"
 	"github.com/mia-platform/configlib"
-	"github.com/mia-platform/glogger"
+	"github.com/mia-platform/glogger/v3"
+	"github.com/sirupsen/logrus"
 )
 
 func main() {
@@ -49,32 +47,23 @@ func entrypoint(shutdown chan os.Signal) {
 		panic(err.Error())
 	}
 
-	// Routing
-	router := mux.NewRouter()
-	router.Use(glogger.RequestMiddlewareLogger(log, []string{"/-/"}))
-	StatusRoutes(router, "mia_template_service_name_placeholder", env.ServiceVersion)
-
-	serviceRouter := router
-	if env.ServicePrefix != "" && env.ServicePrefix != "/" {
-		serviceRouter = router.PathPrefix(fmt.Sprintf("%s/", path.Clean(env.ServicePrefix))).Subrouter()
-	}
-	setupRouter(serviceRouter)
-
-	srv := &http.Server{
-		Addr:    fmt.Sprintf("0.0.0.0:%s", env.HTTPPort),
-		Handler: router,
+	app, err := setupRouter(env, log)
+	if err != nil {
+		panic(err.Error())
 	}
 
-	go func() {
-		log.WithField("port", env.HTTPPort).Info("Starting server")
-		if err := srv.ListenAndServe(); err != nil {
+	go func(app *fiber.App, log *logrus.Logger, env EnvironmentVariables) {
+		log.WithField("port", env.HTTPPort).Info("starting server")
+		if err := app.Listen(fmt.Sprintf(":%s", env.HTTPPort)); err != nil {
 			log.Println(err)
 		}
-	}()
+	}(app, log, env)
 
-	// sigterm signal sent from kubernetes
 	signal.Notify(shutdown, syscall.SIGTERM)
-	// We'll accept graceful shutdowns when quit via  and SIGTERM (Ctrl+/)
-	// SIGINT (Ctrl+C), SIGKILL or SIGQUIT will not be caught.
-	helpers.GracefulShutdown(srv, shutdown, log, env.DelayShutdownSeconds)
+	<-shutdown
+	time.Sleep(time.Duration(env.DelayShutdownSeconds) * time.Second)
+	log.Info("Gracefully shutting down...")
+	if err := app.Shutdown(); err != nil {
+		panic(err.Error())
+	}
 }

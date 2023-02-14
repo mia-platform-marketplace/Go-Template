@@ -4,3 +4,4 @@
 *.env
 *.log*
 mia_template_service_name_placeholder
+coverage.out
