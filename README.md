@@ -19,23 +19,7 @@ A more detailed description on how to create a Microservice can be found in [Mic
 
 ## Look inside your repository
 
-After having created your first microservice (based on this template) you will be able to access to its git repository from the DevOps Console. Inside this repository you will find an [router.go](https://github.com/mia-platform-marketplace/Go-Template/blob/master/router.go) file with the following lines of code:
-
-```go
-package main
-
-import (
-    "net/http"
-
-    "github.com/gorilla/mux"
-)
-
-func setupRouter(router *mux.Router) {
-    // Setup your routes here.
-    router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-    })
-}
-```
+After having created your first microservice (based on this template) you will be able to access to its git repository from the DevOps Console. Inside this repository you will find an [router.go](https://github.com/mia-platform-marketplace/Go-Template/blob/master/router.go) file that creates an empty router.
 
 Wonderful! You are now ready to start customizing your service! Read next section to learn how.
 
@@ -43,13 +27,7 @@ Wonderful! You are now ready to start customizing your service! Read next sectio
 
 Now that you have successfully created a microservice from our Go template you will add an *welcome* route to it.
 
-In order to do so, you should add the following line inside of the import file:
-
-```go
-"encoding/json"
-```
-
-Then, you should create a *Welcome* struct that will contain your welcoming message:
+To do so, open the `router.go` file define a *Welcome* struct that will contain your welcoming message right after the `import` section:
 
 ```go
 type Welcome struct {
@@ -57,38 +35,29 @@ type Welcome struct {
 }
 ```
 
-Lastly, you should add a *welcoming* route to your service. Below you can see how the *router.go* file will look like after having defined this new route and having applied all previous modifications:
+Now, where replace the TODO comment with the following lines:
 
 ```go
-package main
+if _, err := oasRouter.AddRoute(http.MethodGet, "/", HelloHandler, HelloSchema); err != nil {
+    return nil, err
+}
+```
 
-import (
-    "net/http"
-    "encoding/json"
-    "github.com/gorilla/mux"
-)
+And at the end of the file add these definitions:
 
-type Welcome struct {
-    Msg string `json:"msg"`
+```go
+func HelloHandler(c *fiber.Ctx) error {
+	return c.JSON(Welcome{"Welcome!"})
 }
 
-func setupRouter(router *mux.Router) {
-    // Setup your routes here.
-    router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-    })
-    router.HandleFunc("/welcome", func(w http.ResponseWriter, req *http.Request) {
-        w.Header().Add("Content-Type", "application/json")
-        welcome := Welcome{
-            Msg: "Welcome!",
-        }
-        body, err := json.Marshal(&welcome)
-        if err != nil {
-            w.WriteHeader(http.StatusServiceUnavailable)
-            w.Write(nil)
-        }
-        w.WriteHeader(http.StatusOK)
-        w.Write(body)
-    })
+var HelloSchema = swagger.Definitions{
+	Responses: map[int]swagger.ContentValue{
+		200: {
+			Content: swagger.Content{
+				"application/json": {Value: &Welcome{}},
+			},
+		},
+	},
 }
 ```
 

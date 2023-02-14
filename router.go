@@ -57,6 +57,8 @@ func setupRouter(env EnvironmentVariables, log *logrus.Logger) (*fiber.App, erro
 		return nil, err
 	}
 
+	// TODO: add here your routes
+
 	if err = oasRouter.GenerateAndExposeOpenapi(); err != nil {
 		return nil, err
 	}
