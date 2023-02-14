@@ -7,7 +7,7 @@ By default the module name is "service", if you want to change it, please rememb
 ## Development Local
 
 To develop the service locally you need:
-    - Go 1.18+
+    - Go 1.20+
 
 To start the application locally
 
