@@ -17,10 +17,7 @@
 package main
 
 import (
-	"encoding/json"
-	"net/http"
-
-	"github.com/gorilla/mux"
+	"github.com/gofiber/fiber/v2"
 )
 
 // StatusResponse type.
@@ -30,36 +27,32 @@ type StatusResponse struct {
 	Version string `json:"version"`
 }
 
-func handleStatusRoutes(w http.ResponseWriter, serviceName, serviceVersion string) (*StatusResponse, []byte) {
-	w.Header().Add("Content-Type", "application/json")
-	status := StatusResponse{
-		Status:  "OK",
-		Name:    serviceName,
-		Version: serviceVersion,
-	}
-	body, err := json.Marshal(&status)
-	if err != nil {
-		w.WriteHeader(http.StatusServiceUnavailable)
-		return nil, nil
-	}
-
-	return &status, body
-}
-
 // StatusRoutes add status routes to router.
-func StatusRoutes(r *mux.Router, serviceName, serviceVersion string) {
-	r.HandleFunc("/-/healthz", func(w http.ResponseWriter, req *http.Request) {
-		_, body := handleStatusRoutes(w, serviceName, serviceVersion)
-		w.Write(body)
+func StatusRoutes(app *fiber.App, serviceName, serviceVersion string) {
+	app.Get("/-/healthz", func(c *fiber.Ctx) error {
+		status := StatusResponse{
+			Status:  "OK",
+			Name:    serviceName,
+			Version: serviceVersion,
+		}
+		return c.JSON(status)
 	})
 
-	r.HandleFunc("/-/ready", func(w http.ResponseWriter, req *http.Request) {
-		_, body := handleStatusRoutes(w, serviceName, serviceVersion)
-		w.Write(body)
+	app.Get("/-/ready", func(c *fiber.Ctx) error {
+		status := StatusResponse{
+			Status:  "OK",
+			Name:    serviceName,
+			Version: serviceVersion,
+		}
+		return c.JSON(status)
 	})
 
-	r.HandleFunc("/-/check-up", func(w http.ResponseWriter, req *http.Request) {
-		_, body := handleStatusRoutes(w, serviceName, serviceVersion)
-		w.Write(body)
+	app.Get("/-/check-up", func(c *fiber.Ctx) error {
+		status := StatusResponse{
+			Status:  "OK",
+			Name:    serviceName,
+			Version: serviceVersion,
+		}
+		return c.JSON(status)
 	})
 }
