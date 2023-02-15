@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/davidebianchi/gswagger v0.8.0
-	github.com/getkin/kin-openapi v0.112.0
+	github.com/getkin/kin-openapi v0.114.0
 	github.com/gofiber/fiber/v2 v2.42.0
 	github.com/mia-platform/configlib v1.0.0
 	github.com/mia-platform/glogger/v3 v3.0.0
@@ -39,6 +39,7 @@ require (
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
+	github.com/perimeterx/marshmallow v1.1.4 // indirect
 	github.com/philhofer/fwd v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
