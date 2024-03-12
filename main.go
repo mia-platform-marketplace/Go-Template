@@ -23,8 +23,10 @@ import (
 	"syscall"
 	"time"
 
+	"mia_template_service_name_placeholder/config"
+
+	"github.com/caarlos0/env/v10"
 	"github.com/gofiber/fiber/v2"
-	"github.com/mia-platform/configlib"
 	"github.com/mia-platform/glogger/v3"
 	"github.com/sirupsen/logrus"
 )
@@ -35,33 +37,33 @@ func main() {
 }
 
 func entrypoint(shutdown chan os.Signal) {
-	var env EnvironmentVariables
-	err := configlib.GetEnvVariables(envVariablesConfig, &env)
+	var envVar config.EnvironmentVariables
+	err := env.Parse(&envVar)
 	if err != nil {
 		panic(err.Error())
 	}
 
 	// Init logger instance.
-	log, err := glogger.InitHelper(glogger.InitOptions{Level: env.LogLevel})
+	log, err := glogger.InitHelper(glogger.InitOptions{Level: envVar.LogLevel})
 	if err != nil {
 		panic(err.Error())
 	}
 
-	app, err := setupRouter(env, log)
+	app, err := setupRouter(envVar, log)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	go func(app *fiber.App, log *logrus.Logger, env EnvironmentVariables) {
+	go func(app *fiber.App, log *logrus.Logger, env config.EnvironmentVariables) {
 		log.WithField("port", env.HTTPPort).Info("starting server")
 		if err := app.Listen(fmt.Sprintf(":%s", env.HTTPPort)); err != nil {
 			log.Println(err)
 		}
-	}(app, log, env)
+	}(app, log, envVar)
 
 	signal.Notify(shutdown, syscall.SIGTERM)
 	<-shutdown
-	time.Sleep(time.Duration(env.DelayShutdownSeconds) * time.Second)
+	time.Sleep(time.Duration(envVar.DelayShutdownSeconds) * time.Second)
 	log.Info("Gracefully shutting down...")
 	if err := app.Shutdown(); err != nil {
 		panic(err.Error())

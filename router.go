@@ -21,9 +21,10 @@ import (
 	"fmt"
 	"path"
 
+	"mia_template_service_name_placeholder/config"
+
 	swagger "github.com/davidebianchi/gswagger"
 	oasfiber "github.com/davidebianchi/gswagger/support/fiber"
-
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/pprof"
@@ -31,7 +32,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func setupRouter(env EnvironmentVariables, log *logrus.Logger) (*fiber.App, error) {
+func setupRouter(env config.EnvironmentVariables, log *logrus.Logger) (*fiber.App, error) {
 	app := fiber.New()
 	app.Use(middleware.RequestFiberMiddlewareLogger(log, []string{}))
 	StatusRoutes(app, "mia_template_service_name_placeholder", env.ServiceVersion)
