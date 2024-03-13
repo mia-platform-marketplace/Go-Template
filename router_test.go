@@ -6,6 +6,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"mia_template_service_name_placeholder/config"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/sirupsen/logrus/hooks/test"
 	"github.com/stretchr/testify/require"
@@ -13,7 +15,7 @@ import (
 
 func TestSetupRouter(t *testing.T) {
 	log, _ := test.NewNullLogger()
-	env := EnvironmentVariables{
+	env := config.EnvironmentVariables{
 		ServiceVersion: "my-version",
 		HTTPPort:       "3000",
 		ServicePrefix:  "my-prefix",

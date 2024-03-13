@@ -14,44 +14,14 @@
  * limitations under the License.
  */
 
-package main
-
-import (
-	"github.com/mia-platform/configlib"
-)
+package config
 
 // EnvironmentVariables struct with the mapping of desired
 // environment variables.
 type EnvironmentVariables struct {
-	LogLevel             string
-	HTTPPort             string
-	ServicePrefix        string
-	ServiceVersion       string
-	DelayShutdownSeconds int
-}
-
-var envVariablesConfig = []configlib.EnvConfig{
-	{
-		Key:          "LOG_LEVEL",
-		Variable:     "LogLevel",
-		DefaultValue: "info",
-	},
-	{
-		Key:          "HTTP_PORT",
-		Variable:     "HTTPPort",
-		DefaultValue: "8080",
-	},
-	{
-		Key:      "SERVICE_PREFIX",
-		Variable: "ServicePrefix",
-	},
-	{
-		Key:      "SERVICE_VERSION",
-		Variable: "ServiceVersion",
-	},
-	{
-		Key:          "DELAY_SHUTDOWN_SECONDS",
-		Variable:     "DelayShutdownSeconds",
-		DefaultValue: "10",
-	},
+	LogLevel             string `env:"LOG_LEVEL" envDefault:"info"`
+	HTTPPort             string `env:"HTTP_PORT" envDefault:"8080"`
+	ServicePrefix        string `env:"SERVICE_PREFIX"`
+	ServiceVersion       string `env:"SERVICE_VERSION"`
+	DelayShutdownSeconds int    `env:"DELAY_SHUTDOWN_SECONDS" envDefault:"10"`
 }

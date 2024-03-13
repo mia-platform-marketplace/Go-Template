@@ -21,19 +21,23 @@ import (
 	"fmt"
 	"path"
 
+	"mia_template_service_name_placeholder/config"
+
 	swagger "github.com/davidebianchi/gswagger"
 	oasfiber "github.com/davidebianchi/gswagger/support/fiber"
-
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/pprof"
-	"github.com/mia-platform/glogger/v3/middleware"
+	glogrus "github.com/mia-platform/glogger/v4/loggers/logrus"
+	middleware "github.com/mia-platform/glogger/v4/middleware/fiber"
 	"github.com/sirupsen/logrus"
 )
 
-func setupRouter(env EnvironmentVariables, log *logrus.Logger) (*fiber.App, error) {
+func setupRouter(env config.EnvironmentVariables, log *logrus.Logger) (*fiber.App, error) {
 	app := fiber.New()
-	app.Use(middleware.RequestFiberMiddlewareLogger(log, []string{}))
+
+	middlewareLog := glogrus.GetLogger(logrus.NewEntry(log))
+	app.Use(middleware.RequestMiddlewareLogger[*logrus.Entry](middlewareLog, []string{"/-/"}))
 	StatusRoutes(app, "mia_template_service_name_placeholder", env.ServiceVersion)
 	if env.ServicePrefix != "" && env.ServicePrefix != "/" {
 		log.WithField("servicePrefix", env.ServicePrefix).Trace("applying service prefix")
