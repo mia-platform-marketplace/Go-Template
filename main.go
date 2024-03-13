@@ -27,7 +27,7 @@ import (
 
 	"github.com/caarlos0/env/v10"
 	"github.com/gofiber/fiber/v2"
-	"github.com/mia-platform/glogger/v3"
+	glogrus "github.com/mia-platform/glogger/v4/loggers/logrus"
 	"github.com/sirupsen/logrus"
 )
 
@@ -44,7 +44,7 @@ func entrypoint(shutdown chan os.Signal) {
 	}
 
 	// Init logger instance.
-	log, err := glogger.InitHelper(glogger.InitOptions{Level: envVar.LogLevel})
+	log, err := glogrus.InitHelper(glogrus.InitOptions{Level: envVar.LogLevel})
 	if err != nil {
 		panic(err.Error())
 	}
